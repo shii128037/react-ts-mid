@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import '../style/App.css'
 import { asyncGet } from '../utils/fetch'
 import { api } from '../enum/api'
-import { Student } from '../interface/Student'
+import { Student } from '../interface/student'
 import { resp } from '../interface/resp'
 
 function App() {
