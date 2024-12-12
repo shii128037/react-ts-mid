@@ -1,4 +1,4 @@
-帳號,座號,姓名,院系,年級,班級,Email
+userName,sid,name,department,grade,class,Email
 tkuee0787,1,張佳慧,電機工程系,四年級,A,tkuee0787@tkuim.com
 tkubm9553,2,蔡文杰,企業管理系,二年級,A,tkubm9553@tkuim.com
 tkupy6676,3,吳欣怡,心理學系,三年級,A,tkupy6676@tkuim.com
@@ -13,7 +13,7 @@ tkupy7718,11,劉柏宇,心理學系,四年級,D,tkupy7718@tkuim.com
 tkupy4744,12,楊冠霖,心理學系,一年級,C,tkupy4744@tkuim.com
 tkuim8642,13,林俊傑,資訊管理系,二年級,C,tkuim8642@tkuim.com
 tkubm4001,14,王子豪,企業管理系,四年級,B,tkubm4001@tkuim.com
-tkubm5739,15,張昱廷,企業管理系,三年級,B,tkubm5739@tkuim.com
+tkubm5739,15,張昱廷,企業管理系,三年級,B,tkubm5739@tkuim.comZA
 tkuim0615,16,楊惠雯,資訊管理系,三年級,D,tkuim0615@tkuim.com
 tkupy5984,17,黃美玲,心理學系,三年級,A,tkupy5984@tkuim.com
 tkuim6084,18,林怡君,資訊管理系,一年級,D,tkuim6084@tkuim.com
