@@ -1,7 +1,7 @@
 import fs from 'fs';
 import csv from 'csv-parser';
-import { MongoClient, Document } from 'mongodb';
-
+import { MongoClient, } from 'mongodb';
+ //Document
 // MongoDB 連接設定程式
 const uri: string = "mongodb://localhost:27017";
 const dbName: string = "412637273";
@@ -11,7 +11,7 @@ const collectionName: string = "studentslist";
 export interface Student {
     
     userName: string,
-    sid?: String,
+    sid: string | number; 
     name: string;
     department: string;
     grade: string;
