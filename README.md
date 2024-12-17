@@ -1,16 +1,13 @@
+## StudentHub
 ## 安裝與執行指引
-
 ### 1. 安裝前端依賴
-
 在前端專案目錄下，執行以下命令來安裝所有必要的套件：
-
 ```bash
 cd frontend
 npm install
 
 ### 2. 安裝後端依賴
 在後端專案目錄下，執行以下命令來安裝所有必要的套件：
-
 bash
 複製程式碼
 cd backend
@@ -18,16 +15,13 @@ npm install
 
 ### 3. 設定 MongoDB
 確保您已安裝並運行 MongoDB。您可以使用本地 MongoDB 或選擇雲端 MongoDB 服務（如 MongoDB Atlas）。
-
 在 backend/.env 檔案中，設定您的 MongoDB 連接字串：
-
 env
 複製程式碼
 MONGO_URI=mongodb://localhost:27017/studenthub
 
 ### 4. 啟動後端伺服器
 在後端專案目錄下，執行以下命令來啟動後端伺服器：
-
 bash
 複製程式碼
 cd backend
@@ -36,7 +30,6 @@ npm run dev
 
 ### 5. 啟動前端應用
 在前端專案目錄下，執行以下命令來啟動前端應用：
-
 bash
 複製程式碼
 cd frontend
