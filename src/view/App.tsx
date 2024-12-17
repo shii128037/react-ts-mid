@@ -1,52 +1,18 @@
-import { useEffect, useRef, useState } from 'react'
-import '../style/App.css'
-import { asyncGet } from '../utils/fetch'
-import { api } from '../enum/api'
-import { Student } from '../interface/student'
-import { resp } from '../interface/resp'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from '../view/home'; // 首頁
+import Students from './Students'; // 學生清單頁面
+import AddStudent from '../view/AddStudent'; // 新增學生頁面
 
 function App() {
-
-  const [students, setStudents] = useState<Array<Student>>([])
-
-  const cache = useRef<boolean>(false)
-
-  useEffect(() => {
-    /**
-     * 做緩存處理, 避免多次發起請求
-     */
-    if (!cache.current) {
-      cache.current = true;
-      asyncGet(api.findAll).then((res: resp<Array<Student>>) => {
-        if (res.code == 200) {
-          setStudents(res.body)
-        }
-      });
-    }
-  }, [])
-
-  const studentList = students ? students.map((student: Student) => {
-    return (
-      <div className='student' key={student._id}>
-        <p>帳號: {student.userName}</p>
-        <p>座號: {student.sid}</p>
-        <p>姓名: {student.name}</p>
-        <p>院系: {student.department}</p>
-        <p>年級: {student.grade}</p>
-        <p>班級: {student.class}</p>
-        <p>Email: {student.Email}</p>
-        <p>缺席次數: {student.absences ? student.absences : 0}</p>
-      </div>
-    )
-  }) : "loading"
-
   return (
-    <>
-      <div className="container">
-        {studentList}
-      </div>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} /> {/* 首頁路由 */}
+        <Route path="/students" element={<Students />} /> {/* 學生清單路由 */}
+        <Route path="/add-student" element={<AddStudent />} /> {/* 新增學生路由 */}
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;

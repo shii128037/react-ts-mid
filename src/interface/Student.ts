@@ -8,12 +8,16 @@ const dbName: string = "412637273";
 const collectionName: string = "studentslist";
 
 // 定義資料結構型別
-interface Student {
-  name: string;
-  department: string;
-  grade: string;
-  email: string;
-  absences: string;
+export interface Student {
+    
+    userName: string,
+    sid?: String,
+    name: string;
+    department: string;
+    grade: string;
+    class:string,
+    email: string;
+    absences: string;
 }
 
 (async () => {
