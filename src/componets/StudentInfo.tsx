@@ -1,137 +1,115 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Student } from "../interface/student";
 
-interface StudentInfoProps extends Student {
-  title: string; // 表單標題
-  submitText: string; // 提交按鈕文字
-  canEdit: boolean; // 是否可編輯
-  canDelte?: boolean; // 是否顯示刪除按鈕
-  submit: (info: Student) => void; // 提交事件
-  deleteHander?: () => void; // 刪除事件 (選填)
+type info = {
+  onClick?: Function
+  canEdit?: boolean
+  submit?: (info: Student) => Promise<any>,
+  title?: string,
+  submitText?: string,
+  canDelte?: boolean,
+  deleteHandler?:Function,
 }
 
-export const StudentInfo: React.FC<StudentInfoProps> = (props) => {
-  const {
-    title,
-    submitText,
-    canEdit,
-    canDelte = false,
-    submit,
-    deleteHander,
-    ...initInfo
-  } = props;
+export const StudentInfo: React.FC<Student & info> = (student: Student & info) => {
+  const clickHandler = () => {
+    if (student.onClick) {
+      student.onClick()
+    }
+  }
 
-  // 使用 useState 管理表單數據
-  const [formData, setFormData] = useState<Student>({ ...initInfo });
+  if (student.canEdit) {
+    
+    const [info, setInfo] = useState<Student>(student)
 
-  // 處理輸入變化
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+    const submit = () => {
+      if (student.submit) {
+        student.submit(info)
+      }
+    }
 
-  // 提交表單
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    submit(formData);
-  };
-
-  return (
-    <div className="form-container">
-      <h2>{title}</h2>
-      <form onSubmit={handleSubmit}>
-        <p>
-          帳號:
-          <input
-            type="text"
-            name="userName"
-            value={formData.userName}
-            onChange={handleChange}
-            disabled={!canEdit}
-            required
-          />
-        </p>
-        <p>
-          座號:
-          <input
-            type="text"
-            name="sid"
-            value={formData.sid}
-            onChange={handleChange}
-            disabled={!canEdit}
-            required
-          />
-        </p>
-        <p>
-          姓名:
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            disabled={!canEdit}
-            required
-          />
-        </p>
-        <p>
-          院系:
-          <input
-            type="text"
-            name="department"
-            value={formData.department}
-            onChange={handleChange}
-            disabled={!canEdit}
-            required
-          />
-        </p>
-        <p>
-          年級:
-          <input
-            type="text"
-            name="grade"
-            value={formData.grade}
-            onChange={handleChange}
-            disabled={!canEdit}
-            required
-          />
-        </p>
-        <p>
-          班級:
-          <input
-            type="text"
-            name="class"
-            value={formData.class}
-            onChange={handleChange}
-            disabled={!canEdit}
-            required
-          />
-        </p>
-        <p>
-          Email:
-          <input
-            type="email"
-            name="Email"
-            value={formData.email}
-            onChange={handleChange}
-            disabled={!canEdit}
-            required
-          />
-        </p>
-
-        <div className="buttons">
-          {/* 提交按鈕 */}
-          <button type="submit" disabled={!canEdit}>
-            {submitText}
-          </button>
-
-          {/* 刪除按鈕 */}
-          {canDelte && deleteHander && (
-            <button type="button" onClick={deleteHander} className="delete-btn">
-              刪除
-            </button>
-          )}
+    return (
+      <div className="studentEdit" key={info._id} onClick={clickHandler}>
+        <div className="info">
+          <h1>{student.title}</h1>
+          <p>帳號:</p>
+          <input type="text" value={info.userName} onChange={
+            (e) => {
+              const temp = { ...info }
+              temp.userName = e.target.value
+              setInfo(temp);
+            }
+          }/>
         </div>
-      </form>
-    </div>
-  );
-};
+        <div className="info">
+          <p>姓名:</p>
+          <input type="text" value={info.name} onChange={
+            (e) => {
+              const temp = { ...info }
+              temp.name = e.target.value
+              setInfo(temp);
+            }
+          }/>
+        </div>
+        <div className="info">
+          <p>院系:</p>
+          <input type="text" value={info.department} onChange={
+            (e) => {
+              const temp = { ...info }
+              temp.department = e.target.value
+              setInfo(temp);
+            }
+          }/>
+        </div>
+        <div className="info">
+          <p>年級:</p>
+          <input type="text" value={info.grade} onChange={
+            (e) => {
+              const temp = { ...info }
+              temp.grade = e.target.value
+              setInfo(temp);
+            }
+          }/>
+        </div>
+        <div className="info">
+          <p>班級:</p>
+          <input type="text" value={info.class} onChange={
+            (e) => {
+              const temp = { ...info }
+              temp.class = e.target.value
+              setInfo(temp);
+            }
+          }/>
+        </div>
+        <div className="info">
+          <p>Email:</p>
+          <input type="text" value={info.email} onChange={
+            (e) => {
+              const temp = { ...info }
+              temp.email = e.target.value
+              setInfo(temp);
+            }
+          }/>
+        </div>
+        <div className="info">
+          <p>缺席次數:</p>
+          <input type="number" name="" id="" value={info.absences ? info.absences : 0} onChange={
+            (e) => {
+              const temp = { ...info }
+              temp.absences = Number( e.target.value )
+              setInfo(temp);
+            }
+          }/>
+        </div>
+        <div className="btn">
+          <div className="submit" onClick={submit}>
+            {student.submitText}
+          </div>
+          {
+
+          }
+        </div>
+      </div>
+    )
+  }
+}

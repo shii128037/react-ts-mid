@@ -1,79 +1,46 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-
-interface Student {
-  userName: string;
-  sid: string;
-  name: string;
-  department: string;
-  grade: string;
-  class: string;
-  Email: string;
-  absences?: number;
-}
+import React, { useEffect, useRef, useState } from 'react';
+import { asyncGet } from "../utils/fetch";
+import { Student } from '../interface/student';
+import { api } from '../enum/api';
 
 const All: React.FC = () => {
-  const [students, setStudents] = useState<Student[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [students, setStudents] = useState<Student[] | null>(null);
+    const cache = useRef<boolean>(false);
 
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const response = await axios.get('http://163.13.201.151:8877/api/v1/user/findAll');
-        setStudents(response.data);
-      } catch (err) {
-        setError('無法獲取學生資料');
-      } finally {
-        setLoading(false);
-      }
-    };
+    useEffect(() => {
+        if (!cache.current) {
+            cache.current = true;
+            asyncGet(api.findAll).then((res: { code: number, body: Student[] }) => {
+                if (res.code === 200) {
+                    setStudents(res.body);
+                }
+            });
+        }
+    }, []);
 
-    fetchStudents();
-  }, []);
+  /**
+* 列表遍歷渲染, 若請求為 pending 狀態, 顯示 loading
+*/
+const studentList = students ? students.map((student: Student) => (
+  <div className='student' key={student._id}>
+      <p>帳號: {student.userName}</p>
+      <p>座號: {student.sid}</p>
+      <p>姓名: {student.name}</p>
+      <p>院系: {student.department}</p>
+      <p>年級: {student.grade}</p>
+      <p>班級: {student.class}</p>
+      <p>Email: {student.email}</p>
+      <p>缺席次數: {student.absences ? student.absences : 0}</p>
+  </div>
+)) : "loading";
 
-  if (loading) {
-    return <p>載入中...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
-  }
-
-  return (
-    <div>
-      <h2>所有學生資訊</h2>
-      <p>這裡將顯示所有學生的列表。</p>
-      <table>
-        <thead>
-          <tr>
-            <th>帳號 </th>
-            <th>學號 </th>
-            <th>姓名 </th>
-            <th>系所 </th>
-            <th>年級 </th>
-            <th>班級 </th>
-            <th>電子郵件 </th>
-            <th>缺席次數 </th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((student) => (
-            <tr key={student.sid}>
-              <td>{student.userName}</td>
-              <td>{student.sid}</td>
-              <td>{student.name}</td>
-              <td>{student.department}</td>
-              <td>{student.grade}</td>
-              <td>{student.class}</td>
-              <td>{student.Email}</td>
-              <td>{student.absences ?? 'N/A'}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
+return (
+  <>
+      <div className="container">
+          {studentList}
+      </div>
+  </>
+);
 };
 
 export default All;

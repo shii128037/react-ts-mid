@@ -26,3 +26,28 @@
 .container .student h1 {
   font-size: 1.25rem;
 }
+
+.btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.submit {
+  flex: 1;
+  max-width: 200px;
+  border-radius: 0.2rem;
+  border: solid 1px #212121;
+  padding: 10px;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+  background-color: #77818c;
+  color: white;
+  font-weight: bold;
+}
+
+.submit:hover {
+  background-color: #2a2b2c;
+  color: #ffffff;
+}

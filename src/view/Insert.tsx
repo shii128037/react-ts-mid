@@ -1,5 +1,5 @@
 import { StudentInfo } from "../componets/StudentInfo"
-//import { resp } from "../interface/resp";
+import { resp } from "../interface/resp";
 import { Student } from "../interface/student"
 import { asyncPost } from "../utils/fetch" // 假設有 asyncPost 用於 POST 請求
 import { api } from "../enum/api" // API 路徑
@@ -29,7 +29,7 @@ export const Insert:React.FC = () => {
 
     return(
         <div className="containter">
-            <StudentInfo email={""} absences={""} title="新增學生" submitText="確認新增" canEdit={true} submit={submitHandler} {...initInfo}/>
+            <StudentInfo _id={""} email={""} title="新增學生" submitText="確認新增" canEdit={true} submit={submitHandler} {...initInfo}/>
         </div>
     )
 }

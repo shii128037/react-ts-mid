@@ -51,34 +51,3 @@ export async function asyncPatch(api: string, body: {} | FormData) {
         console.error(error)
     }
 }
-
-export const asyncPut = async (url: string, data: any) => {
-    try {
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        });
-        return await response.json();
-    } catch (error) {
-        console.error('PUT 請求錯誤:', error);
-        throw error;
-    }
-};
-
-export const asyncDelete = async (url: string) => {
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        return await response.json();
-    } catch (error) {
-        console.error('DELETE 請求錯誤:', error);
-        throw error;
-    }
-};
